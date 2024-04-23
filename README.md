@@ -1,5 +1,4 @@
-# remark-excalidraw
+# prettier-plugin-tact
 
-To render the excalidraw on website iframe
 
 ## Usage

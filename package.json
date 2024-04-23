@@ -1,7 +1,7 @@
 {
-  "name": "tact-format",
+  "name": "prettier-plugin-tact",
   "version": "1.0.0",
-  "description": "Format tact cli file",
+  "description": "Format tact files.",
   "main": "dist/src/index.js",
   "keywords": [
     "tact",
@@ -10,7 +10,7 @@
   ],
   "author": "fwx5618177",
   "repository": {
-    "url": ""
+    "url": "https://github.com/fwx5618177/prettier-plugin-tact.git"
   },
   "engines": {
     "node": ">=18.12.0"
@@ -33,6 +33,7 @@
   },
   "license": "ISC",
   "devDependencies": {
+    "@ohm-js/cli": "^2.0.0",
     "@types/chai": "^4.3.14",
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.12.7",
@@ -51,6 +52,7 @@
   "dependencies": {
     "@swc/cli": "^0.3.12",
     "@swc/core": "^1.4.14",
+    "ohm-js": "^17.1.0",
     "typescript": "^5.4.5"
   }
 }
