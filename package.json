@@ -1,0 +1,56 @@
+{
+  "name": "tact-format",
+  "version": "1.0.0",
+  "description": "Format tact cli file",
+  "main": "dist/src/index.js",
+  "keywords": [
+    "tact",
+    "format",
+    "cli"
+  ],
+  "author": "fwx5618177",
+  "repository": {
+    "url": ""
+  },
+  "engines": {
+    "node": ">=18.12.0"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "postinstall": "npm run build:prod",
+    "test": "mocha",
+    "test:watch": "mocha --watch --clean-cache",
+    "start": "node --import tsx dist/main.js",
+    "pub:beta": "npm version prerelease --preid=beta",
+    "pub:patch": "npm version patch",
+    "rm": "rimraf dist",
+    "build": "swc src -d dist --source-maps -D --strip-leading-paths",
+    "build:type": "tsc --emitDeclarationOnly",
+    "build:prod": "npm run rm && npm run build:type && npm run build",
+    "lint": "eslint --config .eslintrc . --cache --debug",
+    "lint:fix": "eslint --fix .",
+    "prettier": "prettier --ignore-path .gitignore --write \"**/*.{ts,js}\""
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.3.14",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.12.7",
+    "@typescript-eslint/eslint-plugin": "^7.7.0",
+    "chai": "^5.1.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.1.3",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "mocha": "^10.4.0",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.5"
+  },
+  "dependencies": {
+    "@swc/cli": "^0.3.12",
+    "@swc/core": "^1.4.14",
+    "typescript": "^5.4.5"
+  }
+}

@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.vscode/
+logs/
+download/
+
+__decrepted__*/
+
+.Data_Store
+.env
+.eslintcache
+
+tmp
+log
