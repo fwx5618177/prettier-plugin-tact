@@ -10,23 +10,26 @@
   ],
   "author": "fwx5618177",
   "repository": {
-    "url": "https://github.com/fwx5618177/prettier-plugin-tact.git"
+    "url": "https://github.com/fwx5618177/prettier-plugin-tact.git",
+    "type": "git"
   },
+  "bugs": {
+    "url": "https://github.com/fwx5618177/prettier-plugin-tact/issues",
+    "email": "fwx5618177@gmail.com"
+  },
+  "homepage": "https://github.com/fwx5618177/prettier-plugin-tact#readme",
   "engines": {
-    "node": ">=18.12.0"
+    "node": ">=18.10.0 || <=20.10.0"
   },
   "scripts": {
     "prepare": "husky install",
-    "postinstall": "npm run build:prod",
-    "test": "mocha",
+    "test": "c8 mocha",
     "test:watch": "mocha --watch --clean-cache",
-    "start": "node --import tsx dist/main.js",
+    "coveralls": "c8 report --reporter=text-lcov | coveralls", 
     "pub:beta": "npm version prerelease --preid=beta",
     "pub:patch": "npm version patch",
-    "rm": "rimraf dist",
-    "build": "swc src -d dist --source-maps -D --strip-leading-paths",
-    "build:type": "tsc --emitDeclarationOnly",
-    "build:prod": "npm run rm && npm run build:type && npm run build",
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsc",
     "lint": "eslint --config .eslintrc . --cache --debug",
     "lint:fix": "eslint --fix .",
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.{ts,js}\""
@@ -38,21 +41,20 @@
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.12.7",
     "@typescript-eslint/eslint-plugin": "^7.7.0",
+    "c8": "^9.1.0",
     "chai": "^5.1.0",
-    "eslint": "^8.57.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-prettier": "^5.1.3",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "mocha": "^10.4.0",
     "prettier": "^3.2.5",
-    "rimraf": "^5.0.5"
+    "rimraf": "^5.0.5",
+    "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@swc/cli": "^0.3.12",
-    "@swc/core": "^1.4.14",
     "ohm-js": "^17.1.0",
-    "typescript": "^5.4.5"
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.1.3"
   }
 }
