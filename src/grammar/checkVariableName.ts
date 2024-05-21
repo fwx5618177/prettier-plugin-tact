@@ -1,5 +1,4 @@
-import { throwError } from "./ast";
-import { ASTRef } from "./astRef";
+import { ASTRef, throwError } from "./ast";
 
 export function checkVariableName(name: string, ref: ASTRef) {
     if (name.startsWith("__gen")) {

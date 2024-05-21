@@ -5,8 +5,8 @@
         "module": "ESNext",
         "target": "ESNext",
         "moduleResolution": "node",
-        "baseUrl": "./src",
-        "rootDir": "./src",
+        "baseUrl": ".",
+        "rootDir": ".",
         "outDir": "./dist",
         "declaration": true,
         "declarationMap": true,
@@ -19,7 +19,7 @@
         "skipDefaultLibCheck": true,
         "skipLibCheck": true
     },
-    "include": ["./src"],
+    "include": ["./src", "global.d.ts", "./types"],
     "exclude": ["node_modules", "dist", "**/dist", "**/*.spec.ts", "**/*.test.ts"],
     "ts-node": {
         "esm": true

@@ -98,6 +98,7 @@ Tact {
               | StatementRepeat
               | StatementUntil
               | StatementTry
+              | StatementForEach
     StatementBlock = "{" Statement* "}"
     StatementLet = let id ":" Type "=" Expression ";"
     StatementReturn = return Expression ";" --withExpression
@@ -122,6 +123,7 @@ Tact {
     StatementUntil = do "{" Statement* "}" until "(" Expression ")" ";"
     StatementTry = try "{" Statement* "}" ~catch --simple
                  | try "{" Statement* "}" catch "(" id ")" "{" Statement* "}" --withCatch
+    StatementForEach = "foreach" "(" id "," id "in" Expression ")" "{" Statement* "}"
 
     // L-value
     LValue = id "." LValue --more

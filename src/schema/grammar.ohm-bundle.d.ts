@@ -99,6 +99,7 @@ export interface TactActionDict<T> extends BaseActionDict<T> {
   StatementTry_simple?: (this: NonterminalNode, arg0: NonterminalNode, arg1: TerminalNode, arg2: IterationNode, arg3: TerminalNode) => T;
   StatementTry_withCatch?: (this: NonterminalNode, arg0: NonterminalNode, arg1: TerminalNode, arg2: IterationNode, arg3: TerminalNode, arg4: NonterminalNode, arg5: TerminalNode, arg6: NonterminalNode, arg7: TerminalNode, arg8: TerminalNode, arg9: IterationNode, arg10: TerminalNode) => T;
   StatementTry?: (this: NonterminalNode, arg0: NonterminalNode) => T;
+  StatementForEach?: (this: NonterminalNode, arg0: TerminalNode, arg1: TerminalNode, arg2: NonterminalNode, arg3: TerminalNode, arg4: NonterminalNode, arg5: TerminalNode, arg6: NonterminalNode, arg7: TerminalNode, arg8: TerminalNode, arg9: IterationNode, arg10: TerminalNode) => T;
   LValue_more?: (this: NonterminalNode, arg0: NonterminalNode, arg1: TerminalNode, arg2: NonterminalNode) => T;
   LValue_single?: (this: NonterminalNode, arg0: NonterminalNode) => T;
   LValue?: (this: NonterminalNode, arg0: NonterminalNode) => T;

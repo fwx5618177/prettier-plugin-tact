@@ -1,16 +1,12 @@
-import { ASTFunctionAttribute } from "tact-format";
+import { ASTConstantAttribute, ASTRef, throwError } from "./ast";
 
-import { throwError } from "./ast";
-import { ASTRef } from "./astRef";
-
-
-export function checkFunctionAttributes(
+export function checkConstAttributes(
     isAbstract: boolean,
-    attrs: ASTFunctionAttribute[],
+    attributes: ASTConstantAttribute[],
     ref: ASTRef,
 ) {
     const k = new Set<string>();
-    for (const a of attrs) {
+    for (const a of attributes) {
         if (k.has(a.type)) {
             throwError(`Duplicate function attribute ${a.type}`, a.ref);
         }
