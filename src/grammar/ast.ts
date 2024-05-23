@@ -592,12 +592,14 @@ export type ASTExpression =
     | ASTConditional;
 export type ASTType = ASTPrimitive | ASTStruct | ASTContract | ASTTrait;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type DistributiveOmit<T, K extends keyof any> = T extends any ? Omit<T, K> : never;
+
 let nextId = 1;
+
 export function createNode(src: DistributiveOmit<ASTNode, 'id'>): ASTNode {
     return Object.freeze(Object.assign({ id: nextId++ }, src));
 }
+
 export function cloneASTNode<T extends ASTNode>(src: T): T {
     return { ...src, id: nextId++ };
 }
@@ -620,6 +622,7 @@ export function createRef(s: RawNode, ...extra: RawNode[]): ASTRef {
     if (extra.length > 0) {
         i = i.coverageWith(...extra.map(e => e.source));
     }
+
     return new ASTRef(i, currentFile);
 }
 

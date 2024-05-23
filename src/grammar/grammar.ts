@@ -564,6 +564,34 @@ semantics.addOperation<ASTNode>('resolve_declaration', {
 
 // Statements
 semantics.addOperation<ASTNode>('resolve_statement', {
+    singleLineComment(_arg0, arg1) {
+        return createNode({
+            kind: 'comment',
+            value: arg1.sourceString,
+            ref: createRef(this),
+        });
+    },
+    singleLineDocComment(_arg0, arg1) {
+        return createNode({
+            kind: 'comment',
+            value: arg1.sourceString,
+            ref: createRef(this),
+        });
+    },
+    singleLineImportantComment(_arg0, arg1) {
+        return createNode({
+            kind: 'comment',
+            value: arg1.sourceString,
+            ref: createRef(this),
+        });
+    },
+    multiLineComment(_arg0, arg1, _arg2) {
+        return createNode({
+            kind: 'comment',
+            value: arg1.sourceString,
+            ref: createRef(this),
+        });
+    },
     StatementLet(_arg0, arg1, _arg2, arg3, _arg4, arg5, _arg6) {
         checkVariableName(arg1.sourceString, createRef(arg1));
 
@@ -1175,7 +1203,6 @@ export function parse(src: string, path: string, origin: TypeOrigin): ASTProgram
         try {
             const semanticsResult = semantics(matchResult);
             const program = semanticsResult.resolve_program();
-            // console.log(JSON.stringify(program, replacer, 2));
 
             return program;
         } finally {

@@ -218,8 +218,7 @@ export interface TactActionDict<T> extends BaseActionDict<T> {
   nameAttribute?: (this: NonterminalNode, arg0: TerminalNode) => T;
   reservedWord?: (this: NonterminalNode, arg0: NonterminalNode) => T;
   lineTerminator?: (this: NonterminalNode, arg0: TerminalNode) => T;
-  space?: (this: NonterminalNode, arg0: NonterminalNode | TerminalNode) => T;
-  comment?: (this: NonterminalNode, arg0: NonterminalNode) => T;
+  Comment?: (this: NonterminalNode, arg0: NonterminalNode) => T;
   multiLineComment?: (this: NonterminalNode, arg0: TerminalNode, arg1: IterationNode, arg2: TerminalNode) => T;
   singleLineComment?: (this: NonterminalNode, arg0: TerminalNode, arg1: IterationNode) => T;
   singleLineDocComment?: (this: NonterminalNode, arg0: TerminalNode, arg1: IterationNode) => T;

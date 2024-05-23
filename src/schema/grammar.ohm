@@ -10,7 +10,7 @@ Tact {
                 | ProgramImport
                 | Trait
                 | Constant
-                | comment
+                | Comment
 
     ProgramImport = import stringLiteral ";"
 
@@ -101,7 +101,7 @@ Tact {
               | StatementUntil
               | StatementTry
               | StatementForEach
-              | comment
+              | Comment
     StatementBlock = "{" Statement* "}"
     StatementLet = let id ":" Type "=" Expression ";"
     StatementReturn = return Expression ";" --withExpression
@@ -322,8 +322,7 @@ Tact {
 
     // Comments
     lineTerminator = "\n" | "\r" | "\u2028" | "\u2029"
-    space += comment | lineTerminator
-    comment = multiLineComment | singleLineComment | singleLineDocComment | singleLineImportantComment
+    Comment = multiLineComment | singleLineComment | singleLineDocComment | singleLineImportantComment
     multiLineComment = "/*" (~"*/" any)* "*/"
     singleLineComment = "//" (~lineTerminator any)* 
     singleLineDocComment = "///" (~lineTerminator any)* 

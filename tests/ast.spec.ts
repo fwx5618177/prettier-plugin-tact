@@ -32,7 +32,7 @@ describe('ASTRef', function () {
 /* This is a
     multi-line comment */
     fun testFunc(a: Int): Int {
-        const b: Int = a == 123 ? 1 : 2;
+        let b: Int = a == 123 ? 1 : 2;
         return b;
     }
 `;
