@@ -33,7 +33,8 @@
     "build": "npm run clean && tsc",
     "lint": "eslint --config .eslintrc . --cache --debug",
     "lint:fix": "eslint --fix .",
-    "prettier": "prettier --ignore-path .gitignore --write \"**/*.{ts,js}\""
+    "prettier": "prettier --ignore-path .gitignore --write \"**/*.{ts,js}\"",
+    "ohm": "npx ohm generateBundles --withTypes ./src/schema/grammar.ohm"
   },
   "license": "ISC",
   "devDependencies": {

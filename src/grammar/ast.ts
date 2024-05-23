@@ -1,12 +1,12 @@
-import { Interval as RawInterval, Node as RawNode } from "ohm-js";
-import { TypeOrigin } from "types/types";
+import { Interval as RawInterval, Node as RawNode } from 'ohm-js';
+import { TypeOrigin } from 'types/types';
 
-import { TactSyntaxError } from "../errors";
+import { TactSyntaxError } from '../errors';
 
 export class ASTRef {
     static merge(...refs: ASTRef[]) {
         if (refs.length === 0) {
-            throw Error("Cannot merge 0 refs");
+            throw Error('Cannot merge 0 refs');
         }
         let r = refs[0].#interval;
         const file = refs[0].#file;
@@ -38,7 +38,7 @@ export class ASTRef {
 }
 
 export type ASTPrimitive = {
-    kind: "primitive";
+    kind: 'primitive';
     origin: TypeOrigin;
     id: number;
     name: string;
@@ -50,41 +50,41 @@ export type ASTPrimitive = {
 //
 
 export type ASTNumber = {
-    kind: "number";
+    kind: 'number';
     id: number;
     value: bigint;
     ref: ASTRef;
 };
 
 export type ASTID = {
-    kind: "id";
+    kind: 'id';
     id: number;
     value: string;
     ref: ASTRef;
 };
 
 export type ASTBoolean = {
-    kind: "boolean";
+    kind: 'boolean';
     id: number;
     value: boolean;
     ref: ASTRef;
 };
 
 export type ASTString = {
-    kind: "string";
+    kind: 'string';
     id: number;
     value: string;
     ref: ASTRef;
 };
 
 export type ASTNull = {
-    kind: "null";
+    kind: 'null';
     id: number;
     ref: ASTRef;
 };
 
 export type ASTLvalueRef = {
-    kind: "lvalue_ref";
+    kind: 'lvalue_ref';
     id: number;
     name: string;
     ref: ASTRef;
@@ -95,7 +95,7 @@ export type ASTLvalueRef = {
 //
 
 export type ASTTypeRefSimple = {
-    kind: "type_ref_simple";
+    kind: 'type_ref_simple';
     id: number;
     name: string;
     optional: boolean;
@@ -103,7 +103,7 @@ export type ASTTypeRefSimple = {
 };
 
 export type ASTTypeRefMap = {
-    kind: "type_ref_map";
+    kind: 'type_ref_map';
     id: number;
     key: string;
     keyAs: string | null;
@@ -113,7 +113,7 @@ export type ASTTypeRefMap = {
 };
 
 export type ASTTypeRefBounced = {
-    kind: "type_ref_bounced";
+    kind: 'type_ref_bounced';
     id: number;
     name: string;
     ref: ASTRef;
@@ -126,27 +126,27 @@ export type ASTTypeRef = ASTTypeRefSimple | ASTTypeRefMap | ASTTypeRefBounced;
 //
 
 export type ASTBinaryOperation =
-    | "+"
-    | "-"
-    | "*"
-    | "/"
-    | "!="
-    | ">"
-    | "<"
-    | ">="
-    | "<="
-    | "=="
-    | "&&"
-    | "||"
-    | "%"
-    | "<<"
-    | ">>"
-    | "&"
-    | "|"
-    | "^";
+    | '+'
+    | '-'
+    | '*'
+    | '/'
+    | '!='
+    | '>'
+    | '<'
+    | '>='
+    | '<='
+    | '=='
+    | '&&'
+    | '||'
+    | '%'
+    | '<<'
+    | '>>'
+    | '&'
+    | '|'
+    | '^';
 
 export type ASTOpBinary = {
-    kind: "op_binary";
+    kind: 'op_binary';
     id: number;
     op: ASTBinaryOperation;
     left: ASTExpression;
@@ -154,10 +154,10 @@ export type ASTOpBinary = {
     ref: ASTRef;
 };
 
-export type ASTUnaryOperation = "+" | "-" | "!" | "!!";
+export type ASTUnaryOperation = '+' | '-' | '!' | '!!';
 
 export type ASTOpUnary = {
-    kind: "op_unary";
+    kind: 'op_unary';
     id: number;
     op: ASTUnaryOperation;
     right: ASTExpression;
@@ -165,7 +165,7 @@ export type ASTOpUnary = {
 };
 
 export type ASTOpField = {
-    kind: "op_field";
+    kind: 'op_field';
     id: number;
     src: ASTExpression;
     name: string;
@@ -173,7 +173,7 @@ export type ASTOpField = {
 };
 
 export type ASTOpCall = {
-    kind: "op_call";
+    kind: 'op_call';
     id: number;
     src: ASTExpression;
     name: string;
@@ -182,7 +182,7 @@ export type ASTOpCall = {
 };
 
 export type ASTOpCallStatic = {
-    kind: "op_static_call";
+    kind: 'op_static_call';
     id: number;
     name: string;
     args: ASTExpression[];
@@ -190,7 +190,7 @@ export type ASTOpCallStatic = {
 };
 
 export type ASTOpNew = {
-    kind: "op_new";
+    kind: 'op_new';
     id: number;
     type: string;
     args: ASTNewParameter[];
@@ -198,7 +198,7 @@ export type ASTOpNew = {
 };
 
 export type ASTNewParameter = {
-    kind: "new_parameter";
+    kind: 'new_parameter';
     id: number;
     name: string;
     exp: ASTExpression;
@@ -206,7 +206,7 @@ export type ASTNewParameter = {
 };
 
 export type ASTInitOf = {
-    kind: "init_of";
+    kind: 'init_of';
     id: number;
     name: string;
     args: ASTExpression[];
@@ -214,11 +214,18 @@ export type ASTInitOf = {
 };
 
 export type ASTConditional = {
-    kind: "conditional";
+    kind: 'conditional';
     id: number;
     condition: ASTExpression;
     thenBranch: ASTExpression;
     elseBranch: ASTExpression;
+    ref: ASTRef;
+};
+
+export type ASTComment = {
+    kind: 'comment';
+    id: number;
+    value: string;
     ref: ASTRef;
 };
 
@@ -234,23 +241,24 @@ export type ASTProgramEntry =
     | ASTNativeFunction
     | ASTTrait
     | ASTProgramImport
-    | ASTConstant;
+    | ASTConstant
+    | ASTComment;
 
 export type ASTProgram = {
-    kind: "program";
+    kind: 'program';
     id: number;
     entries: ASTProgramEntry[];
 };
 
 export type ASTProgramImport = {
-    kind: "program_import";
+    kind: 'program_import';
     id: number;
     path: ASTString;
     ref: ASTRef;
 };
 
 export type ASTStruct = {
-    kind: "def_struct";
+    kind: 'def_struct';
     origin: TypeOrigin;
     id: number;
     name: string;
@@ -260,14 +268,10 @@ export type ASTStruct = {
     ref: ASTRef;
 };
 
-export type ASTTraitDeclaration =
-    | ASTField
-    | ASTFunction
-    | ASTReceive
-    | ASTConstant;
+export type ASTTraitDeclaration = ASTField | ASTFunction | ASTReceive | ASTConstant;
 
 export type ASTTrait = {
-    kind: "def_trait";
+    kind: 'def_trait';
     origin: TypeOrigin;
     id: number;
     name: string;
@@ -278,7 +282,7 @@ export type ASTTrait = {
 };
 
 export type ASTField = {
-    kind: "def_field";
+    kind: 'def_field';
     id: number;
     name: string;
     type: ASTTypeRef;
@@ -288,7 +292,7 @@ export type ASTField = {
 };
 
 export type ASTConstant = {
-    kind: "def_constant";
+    kind: 'def_constant';
     id: number;
     name: string;
     type: ASTTypeRef;
@@ -298,12 +302,12 @@ export type ASTConstant = {
 };
 
 export type ASTConstantAttribute =
-    | { type: "virtual"; ref: ASTRef }
-    | { type: "overrides"; ref: ASTRef }
-    | { type: "abstract"; ref: ASTRef };
+    | { type: 'virtual'; ref: ASTRef }
+    | { type: 'overrides'; ref: ASTRef }
+    | { type: 'abstract'; ref: ASTRef };
 
 export type ASTContractAttribute = {
-    type: "interface";
+    type: 'interface';
     name: ASTString;
     ref: ASTRef;
 };
@@ -316,7 +320,7 @@ export type ASTContractDeclaration =
     | ASTConstant;
 
 export type ASTContract = {
-    kind: "def_contract";
+    kind: 'def_contract';
     origin: TypeOrigin;
     id: number;
     name: string;
@@ -327,7 +331,7 @@ export type ASTContract = {
 };
 
 export type ASTArgument = {
-    kind: "def_argument";
+    kind: 'def_argument';
     id: number;
     name: string;
     type: ASTTypeRef;
@@ -335,16 +339,16 @@ export type ASTArgument = {
 };
 
 export type ASTFunctionAttribute =
-    | { type: "get"; ref: ASTRef }
-    | { type: "mutates"; ref: ASTRef }
-    | { type: "extends"; ref: ASTRef }
-    | { type: "virtual"; ref: ASTRef }
-    | { type: "abstract"; ref: ASTRef }
-    | { type: "overrides"; ref: ASTRef }
-    | { type: "inline"; ref: ASTRef };
+    | { type: 'get'; ref: ASTRef }
+    | { type: 'mutates'; ref: ASTRef }
+    | { type: 'extends'; ref: ASTRef }
+    | { type: 'virtual'; ref: ASTRef }
+    | { type: 'abstract'; ref: ASTRef }
+    | { type: 'overrides'; ref: ASTRef }
+    | { type: 'inline'; ref: ASTRef };
 
 export type ASTFunction = {
-    kind: "def_function";
+    kind: 'def_function';
     origin: TypeOrigin;
     id: number;
     attributes: ASTFunctionAttribute[];
@@ -356,33 +360,33 @@ export type ASTFunction = {
 };
 
 export type ASTReceive = {
-    kind: "def_receive";
+    kind: 'def_receive';
     id: number;
     selector:
         | {
-              kind: "internal-simple";
+              kind: 'internal-simple';
               arg: ASTArgument;
           }
         | {
-              kind: "internal-fallback";
+              kind: 'internal-fallback';
           }
         | {
-              kind: "internal-comment";
+              kind: 'internal-comment';
               comment: ASTString;
           }
         | {
-              kind: "bounce";
+              kind: 'bounce';
               arg: ASTArgument;
           }
         | {
-              kind: "external-simple";
+              kind: 'external-simple';
               arg: ASTArgument;
           }
         | {
-              kind: "external-fallback";
+              kind: 'external-fallback';
           }
         | {
-              kind: "external-comment";
+              kind: 'external-comment';
               comment: ASTString;
           };
     statements: ASTStatement[];
@@ -390,7 +394,7 @@ export type ASTReceive = {
 };
 
 export type ASTNativeFunction = {
-    kind: "def_native_function";
+    kind: 'def_native_function';
     origin: TypeOrigin;
     id: number;
     attributes: ASTFunctionAttribute[];
@@ -402,7 +406,7 @@ export type ASTNativeFunction = {
 };
 
 export type ASTInitFunction = {
-    kind: "def_init_function";
+    kind: 'def_init_function';
     id: number;
     args: ASTArgument[];
     statements: ASTStatement[];
@@ -414,7 +418,7 @@ export type ASTInitFunction = {
 //
 
 export type ASTStatementLet = {
-    kind: "statement_let";
+    kind: 'statement_let';
     id: number;
     name: string;
     type: ASTTypeRef;
@@ -423,31 +427,31 @@ export type ASTStatementLet = {
 };
 
 export type ASTStatementReturn = {
-    kind: "statement_return";
+    kind: 'statement_return';
     id: number;
     expression: ASTExpression | null;
     ref: ASTRef;
 };
 
 export type ASTStatementExpression = {
-    kind: "statement_expression";
+    kind: 'statement_expression';
     id: number;
     expression: ASTExpression;
     ref: ASTRef;
 };
 
 export type ASTSTatementAssign = {
-    kind: "statement_assign";
+    kind: 'statement_assign';
     id: number;
     path: ASTLvalueRef[];
     expression: ASTExpression;
     ref: ASTRef;
 };
 
-export type ASTAugmentedAssignOperation = "+" | "-" | "*" | "/" | "%";
+export type ASTAugmentedAssignOperation = '+' | '-' | '*' | '/' | '%';
 
 export type ASTSTatementAugmentedAssign = {
-    kind: "statement_augmentedassign";
+    kind: 'statement_augmentedassign';
     id: number;
     op: ASTAugmentedAssignOperation;
     path: ASTLvalueRef[];
@@ -456,7 +460,7 @@ export type ASTSTatementAugmentedAssign = {
 };
 
 export type ASTCondition = {
-    kind: "statement_condition";
+    kind: 'statement_condition';
     id: number;
     expression: ASTExpression;
     trueStatements: ASTStatement[];
@@ -466,7 +470,7 @@ export type ASTCondition = {
 };
 
 export type ASTStatementWhile = {
-    kind: "statement_while";
+    kind: 'statement_while';
     id: number;
     condition: ASTExpression;
     statements: ASTStatement[];
@@ -474,7 +478,7 @@ export type ASTStatementWhile = {
 };
 
 export type ASTStatementUntil = {
-    kind: "statement_until";
+    kind: 'statement_until';
     id: number;
     condition: ASTExpression;
     statements: ASTStatement[];
@@ -482,7 +486,7 @@ export type ASTStatementUntil = {
 };
 
 export type ASTStatementRepeat = {
-    kind: "statement_repeat";
+    kind: 'statement_repeat';
     id: number;
     iterations: ASTExpression;
     statements: ASTStatement[];
@@ -490,14 +494,14 @@ export type ASTStatementRepeat = {
 };
 
 export type ASTStatementTry = {
-    kind: "statement_try";
+    kind: 'statement_try';
     id: number;
     statements: ASTStatement[];
     ref: ASTRef;
 };
 
 export type ASTStatementTryCatch = {
-    kind: "statement_try_catch";
+    kind: 'statement_try_catch';
     id: number;
     statements: ASTStatement[];
     catchName: string;
@@ -506,7 +510,7 @@ export type ASTStatementTryCatch = {
 };
 
 export type ASTStatementForEach = {
-    kind: "statement_foreach";
+    kind: 'statement_foreach';
     id: number;
     keyName: string;
     valueName: string;
@@ -531,7 +535,9 @@ export type ASTStatement =
     | ASTStatementRepeat
     | ASTStatementTry
     | ASTStatementTryCatch
-    | ASTStatementForEach;
+    | ASTStatementForEach
+    | ASTComment;
+
 export type ASTNode =
     | ASTExpression
     | ASTStruct
@@ -567,7 +573,8 @@ export type ASTNode =
     | ASTTrait
     | ASTProgramImport
     | ASTInitOf
-    | ASTConstant;
+    | ASTConstant
+    | ASTComment;
 export type ASTExpression =
     | ASTOpBinary
     | ASTOpUnary
@@ -586,11 +593,9 @@ export type ASTExpression =
 export type ASTType = ASTPrimitive | ASTStruct | ASTContract | ASTTrait;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type DistributiveOmit<T, K extends keyof any> = T extends any
-    ? Omit<T, K>
-    : never;
+type DistributiveOmit<T, K extends keyof any> = T extends any ? Omit<T, K> : never;
 let nextId = 1;
-export function createNode(src: DistributiveOmit<ASTNode, "id">): ASTNode {
+export function createNode(src: DistributiveOmit<ASTNode, 'id'>): ASTNode {
     return Object.freeze(Object.assign({ id: nextId++ }, src));
 }
 export function cloneASTNode<T extends ASTNode>(src: T): T {
@@ -613,7 +618,7 @@ export function inFile<T>(path: string, callback: () => T) {
 export function createRef(s: RawNode, ...extra: RawNode[]): ASTRef {
     let i = s.source;
     if (extra.length > 0) {
-        i = i.coverageWith(...extra.map((e) => e.source));
+        i = i.coverageWith(...extra.map(e => e.source));
     }
     return new ASTRef(i, currentFile);
 }
@@ -626,21 +631,18 @@ export function throwError(message: string, ref: ASTRef): never {
         };
         throw new TactSyntaxError(
             ref.file +
-                ":" +
+                ':' +
                 lc.lineNum +
-                ":" +
+                ':' +
                 lc.colNum +
-                ": " +
+                ': ' +
                 message +
-                "\n" +
+                '\n' +
                 ref.interval.getLineAndColumnMessage(),
             ref,
         );
     } else {
-        throw new TactSyntaxError(
-            message + ref.interval.getLineAndColumnMessage(),
-            ref,
-        );
+        throw new TactSyntaxError(message + ref.interval.getLineAndColumnMessage(), ref);
     }
 }
 
@@ -651,22 +653,22 @@ export function traverse(node: ASTNode, callback: (node: ASTNode) => void) {
     // Program
     //
 
-    if (node.kind === "program") {
+    if (node.kind === 'program') {
         for (const e of node.entries) {
             traverse(e, callback);
         }
     }
-    if (node.kind === "def_contract") {
+    if (node.kind === 'def_contract') {
         for (const e of node.declarations) {
             traverse(e, callback);
         }
     }
-    if (node.kind === "def_struct") {
+    if (node.kind === 'def_struct') {
         for (const e of node.fields) {
             traverse(e, callback);
         }
     }
-    if (node.kind === "def_trait") {
+    if (node.kind === 'def_trait') {
         for (const e of node.declarations) {
             traverse(e, callback);
         }
@@ -676,7 +678,7 @@ export function traverse(node: ASTNode, callback: (node: ASTNode) => void) {
     // Functions
     //
 
-    if (node.kind === "def_function") {
+    if (node.kind === 'def_function') {
         for (const e of node.args) {
             traverse(e, callback);
         }
@@ -686,7 +688,7 @@ export function traverse(node: ASTNode, callback: (node: ASTNode) => void) {
             }
         }
     }
-    if (node.kind === "def_init_function") {
+    if (node.kind === 'def_init_function') {
         for (const e of node.args) {
             traverse(e, callback);
         }
@@ -694,22 +696,22 @@ export function traverse(node: ASTNode, callback: (node: ASTNode) => void) {
             traverse(e, callback);
         }
     }
-    if (node.kind === "def_receive") {
+    if (node.kind === 'def_receive') {
         for (const e of node.statements) {
             traverse(e, callback);
         }
     }
-    if (node.kind === "def_native_function") {
+    if (node.kind === 'def_native_function') {
         for (const e of node.args) {
             traverse(e, callback);
         }
     }
-    if (node.kind === "def_field") {
+    if (node.kind === 'def_field') {
         if (node.init) {
             traverse(node.init, callback);
         }
     }
-    if (node.kind === "def_constant") {
+    if (node.kind === 'def_constant') {
         if (node.value) {
             traverse(node.value, callback);
         }
@@ -719,31 +721,31 @@ export function traverse(node: ASTNode, callback: (node: ASTNode) => void) {
     // Statements
     //
 
-    if (node.kind === "statement_let") {
+    if (node.kind === 'statement_let') {
         traverse(node.type, callback);
         traverse(node.expression, callback);
     }
-    if (node.kind === "statement_return") {
+    if (node.kind === 'statement_return') {
         if (node.expression) {
             traverse(node.expression, callback);
         }
     }
-    if (node.kind === "statement_expression") {
+    if (node.kind === 'statement_expression') {
         traverse(node.expression, callback);
     }
-    if (node.kind === "statement_assign") {
+    if (node.kind === 'statement_assign') {
         for (const e of node.path) {
             traverse(e, callback);
         }
         traverse(node.expression, callback);
     }
-    if (node.kind === "statement_augmentedassign") {
+    if (node.kind === 'statement_augmentedassign') {
         for (const e of node.path) {
             traverse(e, callback);
         }
         traverse(node.expression, callback);
     }
-    if (node.kind === "statement_condition") {
+    if (node.kind === 'statement_condition') {
         traverse(node.expression, callback);
         for (const e of node.trueStatements) {
             traverse(e, callback);
@@ -757,30 +759,30 @@ export function traverse(node: ASTNode, callback: (node: ASTNode) => void) {
             traverse(node.elseif, callback);
         }
     }
-    if (node.kind === "statement_while") {
+    if (node.kind === 'statement_while') {
         traverse(node.condition, callback);
         for (const e of node.statements) {
             traverse(e, callback);
         }
     }
-    if (node.kind === "statement_until") {
+    if (node.kind === 'statement_until') {
         traverse(node.condition, callback);
         for (const e of node.statements) {
             traverse(e, callback);
         }
     }
-    if (node.kind === "statement_repeat") {
+    if (node.kind === 'statement_repeat') {
         traverse(node.iterations, callback);
         for (const e of node.statements) {
             traverse(e, callback);
         }
     }
-    if (node.kind === "statement_try") {
+    if (node.kind === 'statement_try') {
         for (const e of node.statements) {
             traverse(e, callback);
         }
     }
-    if (node.kind === "statement_try_catch") {
+    if (node.kind === 'statement_try_catch') {
         for (const e of node.statements) {
             traverse(e, callback);
         }
@@ -788,43 +790,49 @@ export function traverse(node: ASTNode, callback: (node: ASTNode) => void) {
             traverse(e, callback);
         }
     }
-    if (node.kind === "statement_foreach") {
+    if (node.kind === 'statement_foreach') {
         for (const e of node.statements) {
             traverse(e, callback);
         }
     }
-    if (node.kind === "op_binary") {
+    if (node.kind === 'op_binary') {
         traverse(node.left, callback);
         traverse(node.right, callback);
     }
-    if (node.kind === "op_unary") {
+    if (node.kind === 'op_unary') {
         traverse(node.right, callback);
     }
-    if (node.kind === "op_field") {
+    if (node.kind === 'op_field') {
         traverse(node.src, callback);
     }
-    if (node.kind === "op_call") {
+    if (node.kind === 'op_call') {
         traverse(node.src, callback);
         for (const e of node.args) {
             traverse(e, callback);
         }
     }
-    if (node.kind === "op_static_call") {
+    if (node.kind === 'op_static_call') {
         for (const e of node.args) {
             traverse(e, callback);
         }
     }
-    if (node.kind === "op_new") {
+    if (node.kind === 'op_new') {
         for (const e of node.args) {
             traverse(e, callback);
         }
     }
-    if (node.kind === "new_parameter") {
+    if (node.kind === 'new_parameter') {
         traverse(node.exp, callback);
     }
-    if (node.kind === "conditional") {
+    if (node.kind === 'conditional') {
         traverse(node.condition, callback);
         traverse(node.thenBranch, callback);
         traverse(node.elseBranch, callback);
+    }
+    //
+    // Comments
+    //
+    if (node.kind === 'comment') {
+        callback(node);
     }
 }
