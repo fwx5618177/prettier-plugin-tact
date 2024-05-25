@@ -39,31 +39,17 @@ semantics.addOperation<ASTNode>('resolve_program', {
 
 // Resolve program items
 semantics.addOperation<ASTNode>('resolve_program_item', {
-    singleLineComment(_arg0, arg1) {
+    multiLineComment(_open, commentText, _close) {
         return createNode({
-            kind: 'comment',
-            value: arg1.sourceString,
+            kind: 'multiLineComment',
+            value: commentText.sourceString.trim(),
             ref: createRef(this),
         });
     },
-    singleLineDocComment(_arg0, arg1) {
+    singleLineComment(_open, commentText) {
         return createNode({
-            kind: 'comment',
-            value: arg1.sourceString,
-            ref: createRef(this),
-        });
-    },
-    singleLineImportantComment(_arg0, arg1) {
-        return createNode({
-            kind: 'comment',
-            value: arg1.sourceString,
-            ref: createRef(this),
-        });
-    },
-    multiLineComment(_arg0, arg1, _arg2) {
-        return createNode({
-            kind: 'comment',
-            value: arg1.sourceString,
+            kind: 'singleLineComment',
+            value: commentText.sourceString,
             ref: createRef(this),
         });
     },
@@ -564,34 +550,6 @@ semantics.addOperation<ASTNode>('resolve_declaration', {
 
 // Statements
 semantics.addOperation<ASTNode>('resolve_statement', {
-    singleLineComment(_arg0, arg1) {
-        return createNode({
-            kind: 'comment',
-            value: arg1.sourceString,
-            ref: createRef(this),
-        });
-    },
-    singleLineDocComment(_arg0, arg1) {
-        return createNode({
-            kind: 'comment',
-            value: arg1.sourceString,
-            ref: createRef(this),
-        });
-    },
-    singleLineImportantComment(_arg0, arg1) {
-        return createNode({
-            kind: 'comment',
-            value: arg1.sourceString,
-            ref: createRef(this),
-        });
-    },
-    multiLineComment(_arg0, arg1, _arg2) {
-        return createNode({
-            kind: 'comment',
-            value: arg1.sourceString,
-            ref: createRef(this),
-        });
-    },
     StatementLet(_arg0, arg1, _arg2, arg3, _arg4, arg5, _arg6) {
         checkVariableName(arg1.sourceString, createRef(arg1));
 
@@ -1221,7 +1179,12 @@ export function parseImports(src: string, path: string, origin: TypeOrigin): str
                 throwError('Import must be at the top of the file', e.ref);
             }
             imports.push(e.path.value);
-        } else if (e.kind !== 'comment') {
+        } else if (
+            e.kind !== 'multiLineComment' &&
+            e.kind !== 'singleLineComment' &&
+            e.kind !== 'singleLineDocComment' &&
+            e.kind !== 'singleLineImportantComment'
+        ) {
             hasExpression = true;
         }
     }
@@ -1232,7 +1195,12 @@ export function parseComments(src: string, path: string, origin: TypeOrigin): st
     const r = parse(src, path, origin);
     const comments: string[] = [];
     for (const e of r.entries) {
-        if (e.kind === 'comment') {
+        if (
+            e.kind === 'multiLineComment' ||
+            e.kind === 'singleLineComment' ||
+            e.kind === 'singleLineDocComment' ||
+            e.kind === 'singleLineImportantComment'
+        ) {
             comments.push(e.value);
         }
     }

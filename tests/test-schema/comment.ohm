@@ -1,0 +1,9 @@
+Comment {
+    Program = (comment | any)*
+    
+    space += comment | lineTerminator
+    comment = multiLineComment | singleLineComment
+    lineTerminator = "\n" | "\r" | "\u2028" | "\u2029"
+    multiLineComment = "/*" (~"*/" any)* "*/"
+    singleLineComment = "//" (~lineTerminator any)*
+}

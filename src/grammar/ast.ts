@@ -223,7 +223,11 @@ export type ASTConditional = {
 };
 
 export type ASTComment = {
-    kind: 'comment';
+    kind:
+        | 'multiLineComment'
+        | 'singleLineComment'
+        | 'singleLineDocComment'
+        | 'singleLineImportantComment';
     id: number;
     value: string;
     ref: ASTRef;
@@ -835,7 +839,12 @@ export function traverse(node: ASTNode, callback: (node: ASTNode) => void) {
     //
     // Comments
     //
-    if (node.kind === 'comment') {
+    if (
+        node.kind === 'multiLineComment' ||
+        node.kind === 'singleLineComment' ||
+        node.kind === 'singleLineDocComment' ||
+        node.kind === 'singleLineImportantComment'
+    ) {
         callback(node);
     }
 }
