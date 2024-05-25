@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
-import { ASTRef, traverse } from '../src/grammar/ast';
+import { ASTRef, traverse } from '../src/grammars/ast';
 import { Interval as RawInterval } from 'ohm-js';
 import { loadCases } from '../src/utils/loadCases';
-import { parse, parseComments, parseImports } from '../src/grammar/grammar';
+import { parse, parseComments, parseImports } from '../src/grammars/grammar';
 import rawGrammar from './test-schema/comment.ohm-bundle';
 
 describe('ASTRef', function () {
@@ -16,7 +16,8 @@ describe('ASTRef', function () {
                 // const commentList = parseComments(r.code, '<unknown>', 'user');
                 // console.log(commentList);
                 // TODO: to complete the test
-                // const code = parse(r.code, '<unknown>', 'user');
+                const code = parse(r.code, '<unknown>', 'user');
+                console.log(code);
                 // traverse(code, node => {
                 //     if (node.kind === 'comment') {
                 //         console.log(node);

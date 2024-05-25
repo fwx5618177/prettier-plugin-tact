@@ -2,6 +2,7 @@ import { MatchResult } from 'ohm-js';
 import { TypeOrigin } from 'types/types';
 
 import rawGrammar from '../schema/grammar.ohm-bundle';
+import { TactSyntaxError } from '../errors';
 
 import {
     ASTConstantAttribute,
@@ -18,7 +19,6 @@ import {
     throwError,
 } from './ast';
 import { checkVariableName } from './checkVariableName';
-import { TactSyntaxError } from './../errors';
 import { checkFunctionAttributes } from './checkFunctionAttributes';
 import { checkConstAttributes } from './checkConstAttributes';
 

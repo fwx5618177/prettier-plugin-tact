@@ -1,4 +1,4 @@
-import { ABIField, Address, Cell } from "@ton/core";
+import { ABIField, Address, Cell } from '@ton/core';
 import {
     ASTConstant,
     ASTFunction,
@@ -9,12 +9,12 @@ import {
     ASTRef,
     ASTStatement,
     ASTType,
-} from "src/grammar/ast";
+} from 'src/grammars/ast';
 
-export type TypeOrigin = "stdlib" | "user";
+export type TypeOrigin = 'stdlib' | 'user';
 
 export type TypeDescription = {
-    kind: "struct" | "primitive" | "contract" | "trait";
+    kind: 'struct' | 'primitive' | 'contract' | 'trait';
     origin: TypeOrigin;
     name: string;
     uid: number;
@@ -35,26 +35,26 @@ export type TypeDescription = {
 
 export type TypeRef =
     | {
-          kind: "ref";
+          kind: 'ref';
           name: string;
           optional: boolean;
       }
     | {
-          kind: "map";
+          kind: 'map';
           key: string;
           keyAs: string | null;
           value: string;
           valueAs: string | null;
       }
     | {
-          kind: "ref_bounced";
+          kind: 'ref_bounced';
           name: string;
       }
     | {
-          kind: "void";
+          kind: 'void';
       }
     | {
-          kind: "null";
+          kind: 'null';
       };
 
 export type FieldDescription = {
@@ -106,62 +106,62 @@ export type FunctionDescription = {
 
 export type StatementDescription =
     | {
-          kind: "native";
+          kind: 'native';
           src: ASTStatement;
       }
     | {
-          kind: "intrinsic";
+          kind: 'intrinsic';
       };
 
 export type ReceiverSelector =
     | {
-          kind: "internal-binary";
+          kind: 'internal-binary';
           type: string;
           name: string;
       }
     | {
-          kind: "internal-empty";
+          kind: 'internal-empty';
       }
     | {
-          kind: "internal-comment";
+          kind: 'internal-comment';
           comment: string;
       }
     | {
-          kind: "internal-comment-fallback";
+          kind: 'internal-comment-fallback';
           name: string;
       }
     | {
-          kind: "internal-fallback";
+          kind: 'internal-fallback';
           name: string;
       }
     | {
-          kind: "bounce-fallback";
+          kind: 'bounce-fallback';
           name: string;
       }
     | {
-          kind: "bounce-binary";
+          kind: 'bounce-binary';
           name: string;
           type: string;
           bounced: boolean;
       }
     | {
-          kind: "external-binary";
+          kind: 'external-binary';
           type: string;
           name: string;
       }
     | {
-          kind: "external-empty";
+          kind: 'external-empty';
       }
     | {
-          kind: "external-comment";
+          kind: 'external-comment';
           comment: string;
       }
     | {
-          kind: "external-comment-fallback";
+          kind: 'external-comment-fallback';
           name: string;
       }
     | {
-          kind: "external-fallback";
+          kind: 'external-fallback';
           name: string;
       };
 
@@ -176,18 +176,18 @@ export type InitDescription = {
 };
 
 export function printTypeRef(src: TypeRef): string {
-    if (src.kind === "ref") {
-        return src.name + (src.optional ? "?" : "");
-    } else if (src.kind === "map") {
-        return `map<${src.key + (src.keyAs ? " as " + src.keyAs : "")}, ${src.value + (src.valueAs ? " as " + src.valueAs : "")}>`;
-    } else if (src.kind === "void") {
-        return "<void>";
-    } else if (src.kind === "null") {
-        return "<null>";
-    } else if (src.kind === "ref_bounced") {
+    if (src.kind === 'ref') {
+        return src.name + (src.optional ? '?' : '');
+    } else if (src.kind === 'map') {
+        return `map<${src.key + (src.keyAs ? ' as ' + src.keyAs : '')}, ${src.value + (src.valueAs ? ' as ' + src.valueAs : '')}>`;
+    } else if (src.kind === 'void') {
+        return '<void>';
+    } else if (src.kind === 'null') {
+        return '<null>';
+    } else if (src.kind === 'ref_bounced') {
         return `bounced<${src.name}>`;
     } else {
-        throw Error("Invalid type ref");
+        throw Error('Invalid type ref');
     }
 }
 
@@ -195,19 +195,19 @@ export function typeRefEquals(a: TypeRef, b: TypeRef) {
     if (a.kind !== b.kind) {
         return false;
     }
-    if (a.kind === "ref" && b.kind === "ref") {
+    if (a.kind === 'ref' && b.kind === 'ref') {
         return a.name === b.name && a.optional === b.optional;
     }
-    if (a.kind === "map" && b.kind === "map") {
+    if (a.kind === 'map' && b.kind === 'map') {
         return a.key === b.key && a.value === b.value;
     }
-    if (a.kind === "ref_bounced" && b.kind === "ref_bounced") {
+    if (a.kind === 'ref_bounced' && b.kind === 'ref_bounced') {
         return a.name === b.name;
     }
-    if (a.kind === "null" && b.kind === "null") {
+    if (a.kind === 'null' && b.kind === 'null') {
         return true;
     }
-    if (a.kind === "void" && b.kind === "void") {
+    if (a.kind === 'void' && b.kind === 'void') {
         return true;
     }
     return false;

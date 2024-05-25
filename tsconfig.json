@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "checkJs": true,
-        "strict": true,
+        "strict": false,
         "module": "ESNext",
         "target": "ESNext",
         "moduleResolution": "node",
@@ -17,10 +17,18 @@
         "resolveJsonModule": true,
         "noEmitOnError": true,
         "skipDefaultLibCheck": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "allowJs": true
     },
-    "include": ["./src", "global.d.ts", "./types"],
-    "exclude": ["node_modules", "dist", "**/dist", "**/*.spec.ts", "**/*.test.ts"],
+    "include": ["src", "global.d.ts", "./types"],
+    "exclude": [
+        "node_modules",
+        "dist",
+        "**/dist",
+        "**/*.spec.ts",
+        "**/*.test.ts",
+        "src/schema/grammar.ohm-bundle.js"
+    ],
     "ts-node": {
         "esm": true
     }

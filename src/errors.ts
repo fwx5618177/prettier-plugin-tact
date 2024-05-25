@@ -1,4 +1,4 @@
-import { ASTRef } from "./grammar/ast";
+import { ASTRef } from './grammars/ast';
 
 export class TactSourceError extends Error {
     readonly ref: ASTRef;
