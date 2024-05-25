@@ -2,8 +2,8 @@
     "compilerOptions": {
         "checkJs": true,
         "strict": false,
-        "module": "ESNext",
-        "target": "ESNext",
+        "module": "CommonJS",
+        "target": "ES2021",
         "moduleResolution": "node",
         "baseUrl": ".",
         "rootDir": ".",
@@ -28,8 +28,5 @@
         "**/*.spec.ts",
         "**/*.test.ts",
         "src/schema/grammar.ohm-bundle.js"
-    ],
-    "ts-node": {
-        "esm": true
-    }
+    ]
 }

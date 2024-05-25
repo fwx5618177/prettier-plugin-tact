@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Format tact files.",
   "main": "dist/src/index.js",
-  "type": "module",
+  "type": "commonjs",
   "keywords": [
     "tact",
     "format",
@@ -31,7 +31,8 @@
     "pub:beta": "npm version prerelease --preid=beta",
     "pub:patch": "npm version patch",
     "clean": "rimraf dist",
-    "build": "npm run clean && tsc && copyfiles -u 1 .src//schema/grammar.ohm-bundle.js dist/schema/",
+    "copy-schema": "copyfiles -u 1 src/schema/**/* dist/src",
+    "build": "npm run clean && tsc && npm run copy-schema",
     "lint": "eslint --config .eslintrc . --cache --debug",
     "lint:fix": "eslint --fix .",
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.{ts,js}\"",
